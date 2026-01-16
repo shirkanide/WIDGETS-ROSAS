@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Rose Countdown</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: monospace; }
+body { background: transparent; }
+.countdown-widget {
+  position: relative;
+  width: 260px;
+  height: 300px;
+  background: #fdf6f8;
+  border-radius: 26px;
+  padding: 24px 20px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+/* corazones animados */
+.hearts {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.heart {
+  position: absolute;
+  bottom: -30px;
+  opacity: 0.35;
+  animation: floatUp linear infinite;
+}
+.small  { font-size: 12px; animation-duration: 18s; }
+.medium { font-size: 18px; animation-duration: 24s; }
+.large  { font-size: 24px; animation-duration: 30s; }
+.light { color: #f1c6d0; }
+.mid   { color: #d89aa6; }
+.dark  { color: #b76e79; }
+@keyframes floatUp {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-340px); }
+}
+
+/* contenido */
+.content {
+  position: relative;
+  z-index: 2;
+}
+h2 {
+  color: #b76e79;
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+.time {
+  font-size: 36px;
+  color: #d89aa6;
+  margin-bottom: 8px;
+}
+label { font-size: 14px; color: #c98a96; display: block; margin-bottom: 6px; }
+input { 
+  border-radius: 14px; border: none; padding: 6px 12px; width: 140px; text-align: center; 
+  margin-bottom: 12px; font-size: 14px;
+}
+button {
+  background: #f3cfd6;
+  border: none;
+  border-radius: 14px;
+  padding: 8px 14px;
+  font-size: 14px;
+  color: #8b4f5c;
+  cursor: pointer;
+}
+button:active { transform: scale(0.95); }
+</style>
+</head>
+<body>
+
+<div class="countdown-widget">
+
+  <!-- corazones -->
+  <div class="hearts">
+    <span class="heart small light" style="left:10%">♥</span>
+    <span class="heart medium mid" style="left:30%">♥</span>
+    <span class="heart large light" style="left:50%">♥</span>
+    <span class="heart small dark" style="left:70%">♥</span>
+    <span class="heart medium light" style="left:85%">♥</span>
+  </div>
+
+  <!-- contenido -->
+  <div class="content">
+    <h2>Cuenta atrás</h2>
+    <label for="dateInput">Fecha del evento:</label>
+    <input type="date" id="dateInput">
+    <div class="time" id="countdown">--d --h --m --s</div>
+    <button id="startBtn">Iniciar</button>
+  </div>
+
+</div>
+
+<script>
+const countdownEl = document.getElementById("countdown");
+const dateInput = document.getElementById("dateInput");
+const startBtn = document.getElementById("startBtn");
+
+let countdownInterval;
+
+function startCountdown(targetDate) {
+  clearInterval(countdownInterval);
+  countdownInterval = setInterval(() => {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    if(distance < 0) {
+      clearInterval(countdownInterval);
+      countdownEl.textContent = "¡Evento!";
+      return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+    const minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
+    const seconds = Math.floor((distance % (1000*60)) / 1000);
+
+    countdownEl.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+  }, 1000);
+}
+
+startBtn.addEventListener("click", () => {
+  const selectedDate = new Date(dateInput.value);
+  if(isNaN(selectedDate)) return alert("Selecciona una fecha válida");
+  startCountdown(selectedDate);
+});
+</script>
+
+</body>
+</html>

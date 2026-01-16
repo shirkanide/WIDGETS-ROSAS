@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Rose Clock</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  font-family: "Segoe UI", "Poppins", sans-serif;
+}
+
+body {
+  margin: 0;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* WIDGET */
+.widget {
+  position: relative;
+  width: 240px;
+  height: 240px;
+  background: #fdf6f8;
+  border-radius: 24px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* CONTENIDO */
+.content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+h2 {
+  font-size: 18px;
+  color: #b76e79;
+  margin-bottom: 10px;
+}
+
+.time {
+  font-size: 40px;
+  color: #d89aa6;
+}
+
+/* CORAZONES */
+.hearts {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.heart {
+  position: absolute;
+  bottom: -20px;
+  opacity: 0.35;
+  animation: floatUp linear infinite;
+}
+
+.small  { font-size: 12px; animation-duration: 16s; }
+.medium { font-size: 18px; animation-duration: 22s; }
+.large  { font-size: 24px; animation-duration: 28s; }
+
+.light { color: #f1c6d0; }
+.mid   { color: #d89aa6; }
+.dark  { color: #b76e79; }
+
+@keyframes floatUp {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-260px); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="widget">
+
+  <!-- CORAZONES -->
+  <div class="hearts">
+    <span class="heart small light" style="left:15%">♥</span>
+    <span class="heart medium mid" style="left:45%">♥</span>
+    <span class="heart large dark" style="left:75%">♥</span>
+  </div>
+
+  <!-- CONTENIDO -->
+  <div class="content">
+    <h2>Hora actual</h2>
+    <div class="time" id="clock">--:--</div>
+  </div>
+
+</div>
+
+<script>
+function updateClock() {
+  const now = new Date();
+  const h = String(now.getHours()).padStart(2, "0");
+  const m = String(now.getMinutes()).padStart(2, "0");
+  document.getElementById("clock").textContent = `${h}:${m}`;
+}
+
+updateClock();
+setInterval(updateClock, 1000);
+</script>
+
+</body>
+</html>

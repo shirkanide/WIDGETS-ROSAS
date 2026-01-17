@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Rose Tasks</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  font-family: "Poppins", "Segoe UI", sans-serif;
+}
+
+body {
+  margin: 0;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* WIDGET */
+.widget {
+  width: 240px;
+  height: 240px;
+  background: #fdf6f8;
+  border-radius: 24px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* TITULO */
+h2 {
+  text-align: center;
+  font-size: 18px;
+  color: #b76e79;
+  margin-bottom: 10px;
+}
+
+/* LISTA */
+.task {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.task input[type="checkbox"] {
+  accent-color: #e7a9b5;
+  cursor: pointer;
+}
+
+.task input[type="text"] {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 13px;
+  color: #8a6f76;
+  border-bottom: 1px dashed #e7a9b5;
+  outline: none;
+}
+
+.task input[type="checkbox"]:checked + input {
+  text-decoration: line-through;
+  color: #c49aa5;
+}
+</style>
+</head>
+
+<body>
+
+<div class="widget">
+  <h2>Tareas</h2>
+
+  <div class="task">
+    <input type="checkbox">
+    <input type="text" placeholder="Tarea 1">
+  </div>
+  <div class="task">
+    <input type="checkbox">
+    <input type="text" placeholder="Tarea 2">
+  </div>
+  <div class="task">
+    <input type="checkbox">
+    <input type="text" placeholder="Tarea 3">
+  </div>
+  <div class="task">
+    <input type="checkbox">
+    <input type="text" placeholder="Tarea 4">
+  </div>
+  <div class="task">
+    <input type="checkbox">
+    <input type="text" placeholder="Tarea 5">
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Rose Countdown</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  font-family: "Poppins", "Segoe UI", sans-serif;
+}
+
+body {
+  margin: 0;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* WIDGET */
+.widget {
+  width: 240px;
+  height: 240px;
+  background: #fdf6f8;
+  border-radius: 24px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* TEXTO */
+h2 {
+  font-size: 18px;
+  color: #b76e79;
+  margin-bottom: 10px;
+}
+
+.time {
+  font-size: 42px;
+  color: #d89aa6;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+/* CONTROLES */
+input {
+  width: 80px;
+  text-align: center;
+  padding: 6px;
+  border-radius: 12px;
+  border: none;
+  background: #f3cfd6;
+  color: #8b4f5c;
+  margin-bottom: 10px;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+}
+
+button {
+  border: none;
+  border-radius: 14px;
+  padding: 6px 12px;
+  background: #e7a9b5;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="widget">
+  <h2>Cuenta atrás</h2>
+  <div class="time" id="display">00:00</div>
+
+  <input type="number" id="minutes" placeholder="Min">
+
+  <div class="buttons">
+    <button id="start">▶</button>
+    <button id="reset">⏹</button>
+  </div>
+</div>
+
+<script>
+let countdown;
+let timeLeft = 0;
+
+const display = document.getElementById("display");
+const startBtn = document.getElementById("start");
+const resetBtn = document.getElementById("reset");
+const input = document.getElementById("minutes");
+
+function updateDisplay() {
+  const m = String(Math.floor(timeLeft / 60)).padStart(2, "0");
+  const s = String(timeLeft % 60).padStart(2, "0");
+  display.textContent = `${m}:${s}`;
+}
+
+startBtn.onclick = () => {
+  clearInterval(countdown);
+
+  if (timeLeft === 0) {
+    const min = parseInt(input.value);
+    if (isNaN(min) || min <= 0) return;
+    timeLeft = min * 60;
+  }
+
+  updateDisplay();
+
+  countdown = setInterval(() => {
+    if (timeLeft > 0) {
+      timeLeft--;
+      updateDisplay();
+    } else {
+      clearInterval(countdown);
+    }
+  }, 1000);
+};
+
+resetBtn.onclick = () => {
+  clearInterval(countdown);
+  timeLeft = 0;
+  display.textContent = "00:00";
+};
+</script>
+
+</body>
+</html>

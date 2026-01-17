@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Rose Hydration</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  font-family: "Poppins", "Segoe UI", sans-serif;
+}
+
+body {
+  margin: 0;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* WIDGET */
+.widget {
+  width: 240px;
+  height: 240px;
+  background: #fdf6f8;
+  border-radius: 24px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* TEXTO */
+h2 {
+  font-size: 18px;
+  color: #b76e79;
+  margin-bottom: 8px;
+}
+
+.count {
+  font-size: 40px;
+  color: #d89aa6;
+  font-weight: 600;
+  margin: 6px 0;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #c49aa5;
+  margin-bottom: 10px;
+}
+
+/* INPUT */
+input {
+  width: 80px;
+  text-align: center;
+  border-radius: 12px;
+  border: none;
+  padding: 4px;
+  background: #f3cfd6;
+  color: #8b4f5c;
+  margin-bottom: 10px;
+}
+
+/* BOTONES */
+.buttons {
+  display: flex;
+  gap: 12px;
+}
+
+button {
+  border: none;
+  border-radius: 14px;
+  padding: 6px 14px;
+  background: #e7a9b5;
+  color: #fff;
+  cursor: pointer;
+  font-size: 18px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="widget">
+  <h2>Hidratación</h2>
+
+  <input type="number" id="goal" min="1" placeholder="Vasos">
+
+  <div class="count" id="count">0</div>
+  <div class="subtitle" id="subtitle">vasos</div>
+
+  <div class="buttons">
+    <button id="add">＋</button>
+    <button id="remove">－</button>
+  </div>
+</div>
+
+<script>
+let current = 0;
+
+const countEl = document.getElementById("count");
+const goalInput = document.getElementById("goal");
+
+document.getElementById("add").onclick = () => {
+  const goal = parseInt(goalInput.value);
+  if (!goal || goal < 1) return alert("Introduce tu objetivo de vasos");
+  if (current < goal) {
+    current++;
+    update(goal);
+  }
+};
+
+document.getElementById("remove").onclick = () => {
+  if (current > 0) {
+    current--;
+    update(goalInput.value);
+  }
+};
+
+function update(goal) {
+  countEl.textContent = `${current} / ${goal}`;
+}
+</script>
+
+</body>
+</html>
